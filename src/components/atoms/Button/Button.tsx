@@ -19,7 +19,7 @@ interface LinkProps {
   children?: React.ReactNode;
   style?: StyleProp<TextStyle>;
   variant?: Variant;
-  btnStyle?: StyleProp<ViewStyle>;
+  btnStyle?: StyleProp<ViewStyle> & StyleProp<TextStyle>;
   external?: boolean;
   type?: ComponentType; // Determines if it's a link or button
   onPress?: () => void; // Custom click handler for button type

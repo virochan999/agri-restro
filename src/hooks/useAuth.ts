@@ -3,6 +3,7 @@ import { authApi } from "@/src/api/auth";
 import { UserFormType } from "@/src/validationSchemas/loginForm";
 import { useAuthStore } from "@/src/store/useAuthStore";
 import { useRouter } from "expo-router";
+import { SignUpFormType } from "../validationSchemas/signupForm";
 
 export const useAuth = () => {
   const router = useRouter();
@@ -28,9 +29,21 @@ export const useAuth = () => {
     },
   });
 
+  const signupMutation = useMutation({
+    mutationFn: (userData: SignUpFormType) => authApi.signup(userData),
+    onSuccess: (data) => {
+      setAuth(data);
+      router.push("/(app)/dashboard");
+    },
+    onError: (error) => {
+      console.error("Signup failed:", error);
+    },
+  });
+
   return {
     login: loginMutation.mutate,
     logout: logoutMutation.mutate,
+    signup: signupMutation.mutate,
     isLoading: loginMutation.isPending || logoutMutation.isPending,
     error: loginMutation.error,
   };

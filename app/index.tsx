@@ -5,50 +5,47 @@ import Text from "@/src/components/atoms/Text/Text";
 import Separator from "@/src/components/molecules/Separator/Separator";
 import { Colors } from "@/src/constants/Colors";
 import { SafeAreaView, StyleSheet, View } from "react-native";
+import AuthWrapper from "@/src/components/organisms/PageThemeWrapper/AuthWrapper";
 
 const Index = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.image}>
-          <Image
-            source={require("@/src/assets/images/agrilink_logo.png")}
-            resizeMode="contain"
-          />
+    <AuthWrapper>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.mainText}>K</Text>
+          <Text style={styles.text}>KHET-TO-KHARIDAR</Text>
         </View>
-        <Heading level={1}>Explore the app</Heading>
-        <Text>Bridging farmers and restruants for fresh, local produce</Text>
-      </View>
-      <View style={styles.wrapper}>
-        <View style={styles.buttonContainer}>
-          <Button
-            url="/login"
-            variant="default"
-            btnStyle={styles.button}
-            type="link"
-            text="Login"
-          />
-          <Separator text="or sign in with" />
-          <Button
-            url="/signup"
-            variant="primary"
-            btnStyle={styles.button}
-            type="link"
-            text="Create account"
-          />
+        <View style={styles.wrapper}>
+          <View style={styles.buttonContainer}>
+            <Button
+              url="/login"
+              variant="default"
+              btnStyle={styles.button}
+              type="link"
+              text="Login"
+            />
+            <Separator text="or" />
+            <Button
+              url="/signup"
+              variant="primary"
+              btnStyle={styles.button}
+              type="link"
+              text="Create account"
+            />
+          </View>
+          <View style={styles.footer}>
+            <Text>Already have an account?</Text>
+            <Button
+              url="/login"
+              variant="underline"
+              style={styles.link}
+              type="link"
+              text="Login"
+            />
+          </View>
         </View>
-      </View>
-      <View style={styles.footer}>
-        <Text>Already have an account?</Text>
-        <Button
-          url="/login"
-          variant="underline"
-          style={styles.link}
-          type="link"
-          text="Login"
-        />
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </AuthWrapper>
   );
 };
 
@@ -57,9 +54,26 @@ export default Index;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
-    gap: 75,
+    gap: 100,
+    paddingTop: 40,
+  },
+  header: {
+    paddingVertical: 20,
+    paddingTop: 40,
+    alignItems: "center",
+    gap: 10,
+    flexDirection: "row",
+  },
+  mainText: {
+    fontSize: 100,
+    fontWeight: "bold",
+    color: Colors.text.tertiary,
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: "bold",
   },
   image: {
     justifyContent: "center",
@@ -68,9 +82,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: "bold",
-  },
-  header: {
-    alignItems: "center",
   },
   footer: {
     alignItems: "center",

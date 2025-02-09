@@ -3,6 +3,10 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
+    gap: 5
+  },
+  label: {
+    fontWeight: 500,
   },
   passwordContainer: {
     position: 'relative',
@@ -13,9 +17,9 @@ export const styles = StyleSheet.create({
     top: 35,
   },
   buttonContainer: {
+    paddingTop: 35,
   },
   button: {
-    marginVertical: 10,
   },
   errorText: {
     color: 'red',

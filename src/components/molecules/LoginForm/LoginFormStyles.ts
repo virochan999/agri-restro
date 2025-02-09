@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
     marginTop: 4,
   },
   button: {
+    fontWeight: 900,
     width: "100%",
   },
   buttonContainer: {
@@ -29,4 +30,15 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
+  googleButton: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 10,
+  },
+  googleButtonText: {
+    fontWeight: 600,
+    lineHeight: 20
+  }
 });

@@ -10,6 +10,7 @@ import Text from "@/src/components/atoms/Text/Text";
 import PasswordIcon from "../PasswordIcon/PasswordIcon";
 import Button from "@/src/components/atoms/Button/Button";
 import Separator from "../Separator/Separator";
+import { AntDesign } from "@expo/vector-icons";
 
 const LoginForm = () => {
   const { login, isLoading, error } = useAuth();
@@ -99,14 +100,18 @@ const LoginForm = () => {
           btnStyle={styles.button}
           text={isLoading ? "Loading..." : "Login"}
         />
-        <Separator text="or sign in with" />
+        <Separator text="or" />
         <Button
           url="/signup"
           variant="primary"
           btnStyle={styles.button}
           type="link"
-          text="Create account"
-        />
+        > 
+          <View style={styles.googleButton}>
+            <AntDesign name="google" size={24} color="white" />
+            <Text style={styles.googleButtonText}>Continue with Google</Text>
+          </View>
+        </Button>
       </View>
 
       {error && (

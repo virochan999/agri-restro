@@ -6,7 +6,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.background.primary,
-    gap: 25,
+    gap: 35,
     justifyContent: 'center',
   },
   header: {

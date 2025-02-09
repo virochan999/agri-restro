@@ -4,11 +4,14 @@ import {
   Text,
   TextInput as RNTextInput,
   TextInputProps,
+  StyleProp,
 } from "react-native";
 import { styles } from "./TextInputStyles";
+import { TextStyle } from "react-native";
 
 interface CustomTextInputProps extends TextInputProps {
   label?: string;
+  labelStyles?: StyleProp<TextStyle>;
   error?: string;
   touched?: boolean;
 }
@@ -21,6 +24,7 @@ const TextInput = ({
   value,
   placeholder,
   style,
+  labelStyles,
   autoComplete = "off",
   ...props
 }: CustomTextInputProps) => {
@@ -28,7 +32,7 @@ const TextInput = ({
 
   return (
     <View style={styles.container}>
-      {label && <Text style={styles.label}>{label}</Text>}
+      {label && <Text style={[styles.label, labelStyles]}>{label}</Text>}
       <RNTextInput
         style={[styles.input, style, showError && styles.errorInput]}
         onChangeText={onChangeText}

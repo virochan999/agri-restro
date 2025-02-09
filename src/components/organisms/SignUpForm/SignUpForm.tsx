@@ -52,6 +52,7 @@ const SignUpForm = () => {
             touched={touchedFields.username}
             placeholder="Username"
             id="username"
+            labelStyles={styles.label}
           />
         )}
         name="username"
@@ -75,6 +76,7 @@ const SignUpForm = () => {
             keyboardType="email-address"
             autoCapitalize="none"
             id="email"
+            labelStyles={styles.label}
           />
         )}
         name="email"
@@ -100,6 +102,7 @@ const SignUpForm = () => {
               autoCapitalize="none"
               textContentType="password"
               id="password"
+              labelStyles={styles.label}
             />
             <View style={styles.passwordIconPosition}>
               <PasswordIcon
@@ -132,6 +135,7 @@ const SignUpForm = () => {
               autoCapitalize="none"
               textContentType="password"
               id="confirmPassword"
+              labelStyles={styles.label}
             />
             <View style={styles.passwordIconPosition}>
               <PasswordIcon

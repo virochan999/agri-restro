@@ -11,4 +11,11 @@ export const spacing = {
     medium: 12,
     large: 16,
   },
+  fontSize: {
+    small: 12,
+    medium: 14,
+    normal: 16,
+    large: 20,
+    xlarge: 24,
+  }
 };

@@ -35,7 +35,9 @@ export default function RootLayout() {
             <Stack.Screen name="index" />
             <Stack.Screen name="(auth)/login/index" />
             <Stack.Screen name="(auth)/signup/index" />
+            <Stack.Screen name="(auth)/verify/index" />
             <Stack.Screen name="(app)/dashboard/index" />
+            <Stack.Screen name="(auth)/set-password/index" />
             <Stack.Screen name="+not-found" />
           </Stack>
         </AuthProvider>

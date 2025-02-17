@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { styles } from "./SignUpFormStyles";
 import { View } from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
@@ -6,14 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "@/src/components/atoms/TextInput/TextInput";
 import { useAuth } from "@/src/hooks/useAuth";
 import Text from "@/src/components/atoms/Text/Text";
-import PasswordIcon from "@/src/components/molecules/PasswordIcon/PasswordIcon";
 import Button from "@/src/components/atoms/Button/Button";
 import { SignUpFormType, signupSchema } from "@/src/validationSchemas/signupForm";
 
 const SignUpForm = () => {
   const { signup, isLoading, error } = useAuth();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     control,
@@ -24,15 +21,26 @@ const SignUpForm = () => {
     mode: "onBlur",
     defaultValues: {
       username: "",
+      fullName: "",
       email: "",
-      password: "",
-      confirmPassword: "",
+      // phone: "",
+      role: "CUSTOMER",
+      activeModule: process.env.EXPO_PUBLIC_APP_MODULE_TYPE
     },
   });
 
+
   const onSubmit: SubmitHandler<SignUpFormType> = async (data: SignUpFormType) => {
-    signup(data);
+    try {
+      signup(data);
+    } catch (err) {
+      console.log("error")
+    }
   };
+
+  const submit = () => {
+    handleSubmit(onSubmit)();
+  }
 
   return (
     <View style={styles.container}>
@@ -56,6 +64,24 @@ const SignUpForm = () => {
           />
         )}
         name="username"
+      />
+
+      <Controller
+        control={control}
+        name="fullName"
+        render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+          <TextInput
+            label="Full Name"
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            id="fullname"
+            error={error?.message}
+            touched={touchedFields.fullName}
+            placeholder="Full Name"
+            labelStyles={styles.label}
+          />
+        )}
       />
 
       {/* Email Field */}
@@ -82,75 +108,32 @@ const SignUpForm = () => {
         name="email"
       />
 
-      {/* Password Field */}
-      <Controller
+      {/* Phone Field */}
+      {/* <Controller
         control={control}
         render={({
           field: { onChange, onBlur, value },
           fieldState: { error },
         }) => (
-          <View style={styles.passwordContainer}>
-            <TextInput
-              label="Password"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              error={error?.message}
-              touched={touchedFields.password}
-              placeholder="Password"
-              secureTextEntry={!showPassword}
-              autoCapitalize="none"
-              textContentType="password"
-              id="password"
-              labelStyles={styles.label}
-            />
-            <View style={styles.passwordIconPosition}>
-              <PasswordIcon
-                onPress={() => setShowPassword(!showPassword)}
-                name={showPassword ? "eye-off" : "eye"}
-              />
-            </View>
-          </View>
+          <TextInput
+            label="Phone"
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            error={error?.message}
+            touched={touchedFields.phone}
+            placeholder="Enter Phone Number"
+            keyboardType="phone-pad"
+            id="phone"
+            labelStyles={styles.label}
+          />
         )}
-        name="password"
-      />
-
-      {/* Confirm Password Field */}
-      <Controller
-        control={control}
-        render={({
-          field: { onChange, onBlur, value },
-          fieldState: { error },
-        }) => (
-          <View style={styles.passwordContainer}>
-            <TextInput
-              label="Confirm Password"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-              error={error?.message}
-              touched={touchedFields.confirmPassword}
-              placeholder="Confirm Password"
-              secureTextEntry={!showConfirmPassword}
-              autoCapitalize="none"
-              textContentType="password"
-              id="confirmPassword"
-              labelStyles={styles.label}
-            />
-            <View style={styles.passwordIconPosition}>
-              <PasswordIcon
-                onPress={() => setShowConfirmPassword(!showConfirmPassword)}
-                name={showConfirmPassword ? "eye-off" : "eye"}
-              />
-            </View>
-          </View>
-        )}
-        name="confirmPassword"
-      />
+        name="phone"
+      /> */}
 
       <View style={styles.buttonContainer}>
         <Button
-          onPress={handleSubmit(onSubmit)}
+          onPress={submit}
           disabled={isLoading || !isValid}
           btnStyle={styles.button}
           text={isLoading ? "Registering..." : "Register"}

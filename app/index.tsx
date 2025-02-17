@@ -1,5 +1,3 @@
-import Heading from "@/src/components/atoms/Heading/Heading";
-import Image from "@/src/components/atoms/Image/Image";
 import Button from "@/src/components/atoms/Button/Button";
 import Text from "@/src/components/atoms/Text/Text";
 import Separator from "@/src/components/molecules/Separator/Separator";

@@ -4,10 +4,11 @@ import { UserFormType } from "@/src/validationSchemas/loginForm";
 import { useAuthStore } from "@/src/store/useAuthStore";
 import { useRouter } from "expo-router";
 import { SignUpFormType } from "../validationSchemas/signupForm";
+import { OTPVerificationType } from "../types/otpVerification";
 
 export const useAuth = () => {
   const router = useRouter();
-  const { setAuth, clearAuth } = useAuthStore();
+  const { setAuth, clearAuth, setRegistrationData, setOtpVerified, clearRegistrationData } = useAuthStore();
 
   const loginMutation = useMutation({
     mutationFn: (credentials: UserFormType) => authApi.login(credentials),
@@ -32,11 +33,45 @@ export const useAuth = () => {
   const signupMutation = useMutation({
     mutationFn: (userData: SignUpFormType) => authApi.signup(userData),
     onSuccess: (data) => {
-      setAuth(data);
-      router.push("/(app)/dashboard");
+      setRegistrationData(data.data);
+      router.push("/(auth)/verify");
     },
     onError: (error) => {
       console.error("Signup failed:", error);
+    },
+  });
+
+  const verifyOtpMutation = useMutation({
+    mutationFn: (otpData: OTPVerificationType) => authApi.verifyOTP(otpData),
+    onSuccess: (data) => {
+      setOtpVerified({
+        status: true,
+        userOtp: data.data.userOtp 
+      });
+      router.push("/(auth)/set-password");
+    },
+    onError: (error) => {
+      console.error("OTP verification failed:", error);
+      throw error; // Re-throw to handle in component
+    },
+  });
+
+  const setPasswordMutation = useMutation({
+    mutationFn: (passwordData: {
+      userId: string;
+      newPassword: string;
+      moduleType: string;
+      tokenType: string;
+      verified: boolean;
+      userOtp: string
+    }) => authApi.setPassword(passwordData),
+    onSuccess: () => {
+      clearRegistrationData();
+      router.push("/(app)/dashboard");
+    },
+    onError: (error) => {
+      console.error("Password set failed:", error);
+      throw error;
     },
   });
 
@@ -44,7 +79,17 @@ export const useAuth = () => {
     login: loginMutation.mutate,
     logout: logoutMutation.mutate,
     signup: signupMutation.mutate,
-    isLoading: loginMutation.isPending || logoutMutation.isPending,
-    error: loginMutation.error,
+    verifyOtp: verifyOtpMutation.mutate,
+    setPassword: setPasswordMutation.mutate,
+    isLoading: loginMutation.isPending || 
+      logoutMutation.isPending ||
+      signupMutation.isPending ||
+      verifyOtpMutation.isPending ||
+      setPasswordMutation.isPending,
+    error: loginMutation.error || 
+      logoutMutation.error ||
+      signupMutation.error ||
+      verifyOtpMutation.error ||
+      setPasswordMutation.error,
   };
 };

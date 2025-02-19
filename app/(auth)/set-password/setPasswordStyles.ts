@@ -31,8 +31,6 @@ export default StyleSheet.create({
     fontSize: 14,
     fontWeight: 500,
   },
-  button: {
-  },
   errorText: {
     color: 'red',
     textAlign: 'center',

@@ -3,7 +3,7 @@ import { useRouter, useSegments } from "expo-router";
 import { useEffect } from "react";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, isLoading, initializeAuth } = useAuthStore();
+  const { isAuthenticated, isLoading, initializeAuth, user } = useAuthStore();
   const segments = useSegments();
   const router = useRouter();
 
@@ -22,7 +22,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (isAuthenticated) {
       if (inAuthGroup || isRoot) {
         // Redirect authenticated users to dashboard
-        router.replace("/(app)/dashboard");
+        if(!user.contactInfo.contactType) {
+          router.push("/(app)/profile");
+          return
+        }
+        router.push("/(app)/dashboard");
       }
     } else {
       if (inAppGroup || isRoot) {

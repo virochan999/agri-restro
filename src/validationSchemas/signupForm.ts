@@ -6,7 +6,7 @@ import { roles } from "../enums/role";
 import { modules } from "../enums/modules";
 
 export const signupSchema = z.object({
-  username: usernameSchema,
+  // username: usernameSchema,
   fullName: fullnameSchema,
   email: emailSchema,
   // phone: z.string().min(10, "Phone number must be at least 10 digits"),

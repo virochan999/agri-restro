@@ -171,7 +171,6 @@ const SetPassword = () => {
         {/* Submit Button */}
         <View style={styles.buttonContainer}>
           <Button
-            style={styles.button}
             disabled={!isValid || isLoading}
             onPress={submit}
             text={isLoading ? "Setting Password..." : "Set Password"}

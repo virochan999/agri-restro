@@ -20,7 +20,7 @@ const SignUpForm = () => {
     resolver: zodResolver(signupSchema),
     mode: "onBlur",
     defaultValues: {
-      username: "",
+      // username: "",
       fullName: "",
       email: "",
       // phone: "",
@@ -45,7 +45,7 @@ const SignUpForm = () => {
   return (
     <View style={styles.container}>
       {/* Username Field */}
-      <Controller
+      {/* <Controller
         control={control}
         render={({
           field: { onChange, onBlur, value },
@@ -64,7 +64,7 @@ const SignUpForm = () => {
           />
         )}
         name="username"
-      />
+      /> */}
 
       <Controller
         control={control}

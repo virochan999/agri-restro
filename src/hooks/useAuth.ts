@@ -13,8 +13,8 @@ export const useAuth = () => {
   const loginMutation = useMutation({
     mutationFn: (credentials: UserFormType) => authApi.login(credentials),
     onSuccess: (data) => {
-      setAuth(data);
-      router.push("/(app)/dashboard");
+      setAuth(data.data);
+      router.push("/");
     },
     onError: (error) => {
       // You might want to show a toast here
@@ -65,9 +65,10 @@ export const useAuth = () => {
       verified: boolean;
       userOtp: string
     }) => authApi.setPassword(passwordData),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log("data",data)
       clearRegistrationData();
-      router.push("/(app)/dashboard");
+      router.push("/(auth)/login");
     },
     onError: (error) => {
       console.error("Password set failed:", error);

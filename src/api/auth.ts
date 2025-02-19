@@ -32,7 +32,6 @@ export const authApi = {
 
   signup: async (userData: SignUpFormType) => {
     const payload = {
-      username: userData.username,
       contactInfo: {
         fullName: userData.fullName,
         email: userData.email,

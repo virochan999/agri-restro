@@ -1,15 +1,6 @@
-type FontWeight =
-  | "100"
-  | "200"
-  | "300"
-  | "400"
-  | "500"
-  | "600"
-  | "700"
-  | "800"
-  | "900"
-  | "normal"
-  | "bold";
+import { spacing } from "./spacing";
+
+export type FontWeight = keyof typeof spacing.fontWeight;
 
 interface TypographyStyles {
   button: {
@@ -47,7 +38,7 @@ interface TypographyStyles {
 export const typography: TypographyStyles = {
   button: {
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "semibold",
     lineHeight: 24,
   },
   h1: {
@@ -57,7 +48,7 @@ export const typography: TypographyStyles = {
   },
   h2: {
     fontSize: 24,
-    fontWeight: "600",
+    fontWeight: "semibold",
     lineHeight: 32,
   },
   text: {
@@ -67,12 +58,12 @@ export const typography: TypographyStyles = {
   },
   caption: {
     fontSize: 12,
-    fontWeight: "600",
+    fontWeight: "semibold",
     lineHeight: 16,
   },
   label: {
     fontSize: 14,
-    fontWeight: "500",
+    fontWeight: "medium",
     lineHeight: 20,
   },
 };

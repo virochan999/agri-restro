@@ -36,10 +36,14 @@ export const Colors = {
   },
   background: {
     primary: "#F1E8CB",
+    bgPrimary: "#F0F0EF",
     secondary: "#F5F5F5",
   },
   button: {
     primary: "#4CAF50",
     secondary: "#FFFFFF",
   },
+  yellow: "#FED403",
+  green: "#375428",
+
 };

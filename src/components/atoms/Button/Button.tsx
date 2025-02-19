@@ -17,7 +17,7 @@ type ComponentType = "link" | "button";
 interface LinkProps {
   url?: string; // Optional for button type
   children?: React.ReactNode;
-  style?: StyleProp<TextStyle>;
+  textStyle?: StyleProp<TextStyle>;
   variant?: Variant;
   btnStyle?: StyleProp<ViewStyle> & StyleProp<TextStyle>;
   external?: boolean;
@@ -30,7 +30,7 @@ interface LinkProps {
 const Button = ({
   url,
   children,
-  style,
+  textStyle,
   variant = "default",
   btnStyle,
   external,
@@ -74,8 +74,8 @@ const Button = ({
       disabled={disabled}
       style={[buttonStyle, styles.button, styles[variant], btnStyle]}
     >
-      <Text style={[styles.link, style]}>{text}</Text>
       {children}
+      <Text style={[styles.link, textStyle]}>{text}</Text>
     </TouchableOpacity>
   );
 };

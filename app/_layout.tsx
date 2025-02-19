@@ -6,6 +6,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import "react-native-reanimated";
+import "@/src/styles/globalStyles";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -39,6 +40,9 @@ export default function RootLayout() {
             <Stack.Screen name="(app)/dashboard/index" />
             <Stack.Screen name="(auth)/set-password/index" />
             <Stack.Screen name="+not-found" />
+            <Stack.Screen name="(app)/profile/index" />
+            <Stack.Screen name="(app)/owner/index" />
+            <Stack.Screen name="(app)/businessDetails/index" />
           </Stack>
         </AuthProvider>
       </QueryClientProvider>

@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
   },
   label: {
     ...typography.label,
+    fontWeight: "normal",
     marginBottom: spacing.spacing.tiny,
   },
   input: {
@@ -25,6 +26,7 @@ export const styles = StyleSheet.create({
   errorText: {
     ...typography.caption,
     color: Colors.error,
+    fontWeight: "normal",
     marginTop: spacing.spacing.tiny,
   },
 });

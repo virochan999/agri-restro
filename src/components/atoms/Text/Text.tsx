@@ -13,7 +13,7 @@ interface CustomTextProps {
 const Text = ({ variant = "text", style, children }: CustomTextProps) => {
   const textStyle = {
     fontSize: typography[variant].fontSize,
-    fontWeight: typography[variant].fontWeight,
+    fontWeight: typography[variant].fontWeight = "normal",
     lineHeight: typography[variant].lineHeight,
   };
 

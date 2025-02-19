@@ -8,6 +8,10 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
   button: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 10,
     padding: 15,
     borderRadius: 20,
     alignItems: "center",

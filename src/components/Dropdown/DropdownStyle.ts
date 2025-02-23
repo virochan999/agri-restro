@@ -55,13 +55,7 @@ export default StyleSheet.create({
     borderTopWidth: 0,
     borderBottomLeftRadius: 4,
     borderBottomRightRadius: 4,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
     elevation: 5,
   },
   option: {

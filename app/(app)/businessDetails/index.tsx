@@ -159,15 +159,12 @@ function index() {
               )}
             />
 
-            <Input
+            <TextInput
               labelStyles={[styles.label]}
-              inputStyles={[styles.input]}
               label="Operating Hours"
               value="8"
               onChangeText={(text) => console.log(text)}
               placeholder="Hrs"
-              secureTextEntry={false}
-              error=""
             />
             <Controller
               name="panCard"

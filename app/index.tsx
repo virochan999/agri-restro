@@ -36,7 +36,6 @@ const Index = () => {
             <Button
               url="/login"
               variant="underline"
-              style={styles.link}
               type="link"
               text="Login"
             />
@@ -51,7 +50,6 @@ export default Index;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
     gap: 100,

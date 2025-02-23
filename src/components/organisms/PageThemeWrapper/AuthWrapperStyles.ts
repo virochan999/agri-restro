@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: '25%',
-    zIndex: -1,
   },
   backgroundImage: {
     width: '100%',

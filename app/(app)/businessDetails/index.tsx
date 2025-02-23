@@ -6,23 +6,21 @@ import Dropdown from "@/src/components/Dropdown";
 import Button from "@/src/components/atoms/Button/Button";
 import styles from "./businessStyle";
 import { useAuthStore } from "@/src/store/useAuthStore";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, useWatch } from "react-hook-form";
 import TextInput from "@/src/components/atoms/TextInput/TextInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   businessDetailSchema,
   businessDetailSchemaType,
 } from "@/src/validationSchemas/businessDetail";
-import CustomDatePicker from "@/src/components/datePicker";
-import CustomTimePicker from "@/src/components/timePicker";
 import { useBusinessDetail } from "@/src/hooks/useBusinessDetail";
 
-function index() {
+function BusinessInformation() {
   const { user } = useAuthStore();
   const { updateBusinessDetail } = useBusinessDetail();
+  
   const {
     control,
-    getValues,
     handleSubmit,
     formState: { errors, touchedFields },
   } = useForm<businessDetailSchemaType>({
@@ -30,20 +28,103 @@ function index() {
     resolver: zodResolver(businessDetailSchema),
     defaultValues: {
       userId: user.id,
-      restaurantName: user?.contactInfo?.fullName,
+      restaurantName: user?.contactInfo?.fullName || "",
       address: {
-        addressLine1: user?.contactInfo?.email,
-        addressLine2: user?.contactInfo?.phone,
+        addressLine1: user?.contactInfo?.email || "",
+        addressLine2: user?.contactInfo?.phone || "",
       },
-      fssaiId: user?.contactInfo?.contactType,
+      fssaiId: user?.contactInfo?.contactType || "",
+      contactType: undefined,
+      phone: "",
+      whatsapp: "",
+      email: "",
     },
   });
+
+  // Watch contactType to conditionally render fields
+  const contactType = useWatch({
+    control,
+    name: "contactType",
+  });
+
+  // Render contact field based on selected type
+  const renderContactField = () => {
+    switch (contactType) {
+      case "CALL":
+        return (
+          <Controller
+            name="phone"
+            control={control}
+            render={({ field: { onBlur, onChange, value } }) => (
+              <TextInput
+                labelStyles={[styles.label]}
+                label="Phone Number"
+                value={value}
+                onChangeText={onChange}
+                placeholder="Enter phone number"
+                error={errors?.phone?.message}
+                id="phone"
+                touched={touchedFields.phone}
+                onBlur={onBlur}
+                keyboardType="phone-pad"
+              />
+            )}
+          />
+        );
+      case "WHATSAPP":
+        return (
+          <Controller
+            name="whatsapp"
+            control={control}
+            render={({ field: { onBlur, onChange, value } }) => (
+              <TextInput
+                labelStyles={[styles.label]}
+                label="WhatsApp Number"
+                value={value}
+                onChangeText={onChange}
+                placeholder="Enter WhatsApp number"
+                error={errors?.whatsapp?.message}
+                id="whatsapp"
+                touched={touchedFields.whatsapp}
+                onBlur={onBlur}
+                keyboardType="phone-pad"
+              />
+            )}
+          />
+        );
+      case "EMAIL":
+        return (
+          <Controller
+            name="email"
+            control={control}
+            render={({ field: { onBlur, onChange, value } }) => (
+              <TextInput
+                labelStyles={[styles.label]}
+                label="Email Address"
+                value={value}
+                onChangeText={onChange}
+                placeholder="Enter email address"
+                error={errors?.email?.message}
+                id="email"
+                touched={touchedFields.email}
+                onBlur={onBlur}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            )}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   const onSubmit = (values: businessDetailSchemaType) => {
     const payload = {
       userId: user.id,
       address: {
-        addressLine1: values?.address?.addressLine1,
-        addressLine2: values?.address?.addressLine2,
+        addressLine1: values.address.addressLine1,
+        addressLine2: values.address.addressLine2,
         country: "",
         countryCode: "",
         state: "",
@@ -54,17 +135,18 @@ function index() {
         lng: "",
         defaultAddress: true,
       },
-      contactType: values?.contactType,
-      phone: "",
-      whatsapp: "",
-      email: "",
+      contactType: values.contactType,
+      phone: values.contactType === "CALL" ? values.phone : "",
+      whatsapp: values.contactType === "WHATSAPP" ? values.whatsapp : "",
+      email: values.contactType === "EMAIL" ? values.email : "",
       startTime: "09:00",
       endTime: "18:00",
-      fssaiId: values?.fssaiId,
-      panCard: values?.panCard,
+      fssaiId: values.fssaiId,
+      panCard: values.panCard,
     };
     updateBusinessDetail(payload);
   };
+
   return (
     <ProfileWrapper>
       <ScrollView>
@@ -88,6 +170,7 @@ function index() {
                 />
               )}
             />
+            
             <Controller
               name="contactType"
               control={control}
@@ -96,7 +179,7 @@ function index() {
                   label="Business Type"
                   slectedLabel="name"
                   slectedValueLabel="code"
-                  placeholder="Enter Business Email"
+                  placeholder="Select Business Type"
                   options={[
                     { name: "Number", code: "CALL" },
                     { name: "WhatsApp", code: "WHATSAPP" },
@@ -104,16 +187,20 @@ function index() {
                   ]}
                   selectedValue={value}
                   onSelect={(item) => onChange(item.code)}
-                ></Dropdown>
+                />
               )}
             />
+
+            {/* Dynamically rendered contact field */}
+            {renderContactField()}
+
             <Controller
               name="fssaiId"
               control={control}
               render={({ field: { onBlur, onChange, value } }) => (
                 <TextInput
                   labelStyles={[styles.label]}
-                  label="FSSAI License Number (Optional)"
+                  label="FSSAI License Number"
                   value={value}
                   onChangeText={onChange}
                   placeholder="Enter License Number"
@@ -125,6 +212,7 @@ function index() {
                 />
               )}
             />
+
             <Controller
               name="address.addressLine1"
               control={control}
@@ -142,6 +230,7 @@ function index() {
                 />
               )}
             />
+
             <Controller
               name="address.addressLine2"
               control={control}
@@ -184,8 +273,6 @@ function index() {
                 />
               )}
             />
-            {/* <CustomDatePicker onDateChange={handleDateChange} selectedDate={selectedDate} /> */}
-            {/* <CustomTimePicker onTimeChange={handleDateChange} selectedTime={selectedDate} /> */}
           </View>
         </View>
       </ScrollView>
@@ -194,10 +281,10 @@ function index() {
           onPress={handleSubmit(onSubmit)}
           text="Continue"
           btnStyle={[styles.button]}
-        ></Button>
+        />
       </View>
     </ProfileWrapper>
   );
 }
 
-export default index;
+export default BusinessInformation;

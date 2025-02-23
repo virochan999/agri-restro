@@ -21,9 +21,8 @@ if (Platform.OS === 'android') {
   }
 }
 
-interface DropdownOption {
-  label: string;
-  value: string | number;
+type DropdownOption = {
+  [key: string]: string | number;
 }
 
 interface DropdownProps {
@@ -39,11 +38,15 @@ interface DropdownProps {
   selectedLabelStyle?: TextStyle;
   placeholderStyle?: TextStyle;
   maxHeight?: number;
+  slectedLabel?: string;
+  slectedValueLabel?: string;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
   options,
   label,
+  slectedLabel,
+  slectedValueLabel,
   selectedValue,
   onSelect,
   placeholder = 'Select an option',
@@ -56,7 +59,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   maxHeight = 200,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const selectedOption = options.find(opt => opt.value === selectedValue);
+  const selectedOption = options.find(opt => opt[slectedValueLabel || "value"] === selectedValue);
   const [dropdownLayout, setDropdownLayout] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const containerRef = useRef<View>(null);
 
@@ -98,7 +101,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             !selectedOption ? placeholderStyle : selectedLabelStyle,
           ]}
         >
-          {selectedOption ? selectedOption.label : placeholder}
+          {selectedOption ? selectedOption[slectedLabel || "label"] : placeholder}
         </Text>
         <Text style={[styles.arrow, isOpen && styles.arrowUp]}>▼</Text>
       </TouchableOpacity>
@@ -115,13 +118,13 @@ const Dropdown: React.FC<DropdownProps> = ({
         >
           <FlatList
             data={options}
-            keyExtractor={(item) => item.value.toString()}
+            keyExtractor={(item) => item[slectedValueLabel || "value"]?.toString()}
             renderItem={({ item }) => (
               <TouchableOpacity
                 style={[
                   styles.option,
                   optionStyle,
-                  item.value === selectedValue && styles.selectedOption
+                  item[slectedValueLabel || "value"] === selectedValue && styles.selectedOption
                 ]}
                 onPress={() => handleSelect(item)}
               >
@@ -129,10 +132,10 @@ const Dropdown: React.FC<DropdownProps> = ({
                   style={[
                     styles.optionText,
                     labelStyle,
-                    item.value === selectedValue && styles.selectedOptionText
+                    item[slectedValueLabel || "value"] === selectedValue && styles.selectedOptionText
                   ]}
                 >
-                  {item.label}
+                  {item[slectedLabel || "label"]}
                 </Text>
               </TouchableOpacity>
             )}

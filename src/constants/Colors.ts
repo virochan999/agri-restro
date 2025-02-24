@@ -45,5 +45,6 @@ export const Colors = {
   },
   yellow: "#FED403",
   green: "#375428",
+  grey: "#D9D9D9"
 
 };

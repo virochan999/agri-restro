@@ -1,24 +1,22 @@
-import React from "react";
 import ProfileWrapper from "@/src/components/organisms/PageThemeWrapper/Profile/ProfileWrapper";
 import { View, Text, ScrollView } from "react-native";
-import { Input } from "@/src/components/Input/Input";
 import Dropdown from "@/src/components/Dropdown";
 import Button from "@/src/components/atoms/Button/Button";
 import styles from "./businessStyle";
 import { useAuthStore } from "@/src/store/useAuthStore";
-import { useForm, Controller, useWatch } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import TextInput from "@/src/components/atoms/TextInput/TextInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   businessDetailSchema,
   businessDetailSchemaType,
 } from "@/src/validationSchemas/businessDetail";
-import { useBusinessDetail } from "@/src/hooks/useBusinessDetail";
+import { useBusinessDetail, getBusinessDetails } from "@/src/hooks/useBusinessDetail";
 
 function BusinessInformation() {
   const { user } = useAuthStore();
   const { updateBusinessDetail } = useBusinessDetail();
-  
+  const { ownerData } = getBusinessDetails(user.id);
   const {
     control,
     handleSubmit,
@@ -40,105 +38,27 @@ function BusinessInformation() {
       email: "",
     },
   });
-
-  // Watch contactType to conditionally render fields
-  const contactType = useWatch({
-    control,
-    name: "contactType",
-  });
-
-  // Render contact field based on selected type
-  const renderContactField = () => {
-    switch (contactType) {
-      case "CALL":
-        return (
-          <Controller
-            name="phone"
-            control={control}
-            render={({ field: { onBlur, onChange, value } }) => (
-              <TextInput
-                labelStyles={[styles.label]}
-                label="Phone Number"
-                value={value}
-                onChangeText={onChange}
-                placeholder="Enter phone number"
-                error={errors?.phone?.message}
-                id="phone"
-                touched={touchedFields.phone}
-                onBlur={onBlur}
-                keyboardType="phone-pad"
-              />
-            )}
-          />
-        );
-      case "WHATSAPP":
-        return (
-          <Controller
-            name="whatsapp"
-            control={control}
-            render={({ field: { onBlur, onChange, value } }) => (
-              <TextInput
-                labelStyles={[styles.label]}
-                label="WhatsApp Number"
-                value={value}
-                onChangeText={onChange}
-                placeholder="Enter WhatsApp number"
-                error={errors?.whatsapp?.message}
-                id="whatsapp"
-                touched={touchedFields.whatsapp}
-                onBlur={onBlur}
-                keyboardType="phone-pad"
-              />
-            )}
-          />
-        );
-      case "EMAIL":
-        return (
-          <Controller
-            name="email"
-            control={control}
-            render={({ field: { onBlur, onChange, value } }) => (
-              <TextInput
-                labelStyles={[styles.label]}
-                label="Email Address"
-                value={value}
-                onChangeText={onChange}
-                placeholder="Enter email address"
-                error={errors?.email?.message}
-                id="email"
-                touched={touchedFields.email}
-                onBlur={onBlur}
-                keyboardType="email-address"
-                autoCapitalize="none"
-              />
-            )}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
+  console.log('ownerData',ownerData)
   const onSubmit = (values: businessDetailSchemaType) => {
     const payload = {
       userId: user.id,
       address: {
         addressLine1: values.address.addressLine1,
         addressLine2: values.address.addressLine2,
-        country: "",
-        countryCode: "",
-        state: "",
-        stateCode: "",
-        city: "",
-        pinCode: "",
-        lat: "",
-        lng: "",
+        country: "India",
+        countryCode: "IN",
+        state: "Punjab",
+        stateCode: "PB",
+        city: "Pathankot",
+        pinCode: "145001",
+        lat: "12.345678",
+        lng: "89.123456",
         defaultAddress: true,
       },
       contactType: values.contactType,
-      phone: values.contactType === "CALL" ? values.phone : "",
-      whatsapp: values.contactType === "WHATSAPP" ? values.whatsapp : "",
-      email: values.contactType === "EMAIL" ? values.email : "",
+      phone: values.phone,
+      whatsapp: values.whatsapp,
+      email: values.email,
       startTime: "09:00",
       endTime: "18:00",
       fssaiId: values.fssaiId,
@@ -191,9 +111,63 @@ function BusinessInformation() {
               )}
             />
 
-            {/* Dynamically rendered contact field */}
-            {renderContactField()}
-
+            <Controller
+            name="phone"
+            control={control}
+            render={({ field: { onBlur, onChange, value } }) => (
+              <TextInput
+                labelStyles={[styles.label]}
+                label="Phone Number"
+                value={value}
+                onChangeText={onChange}
+                placeholder="Enter phone number"
+                error={errors?.phone?.message}
+                id="phone"
+                touched={touchedFields.phone}
+                onBlur={onBlur}
+                maxLength={10}
+                keyboardType="phone-pad"
+              />
+            )}
+          />
+           <Controller
+            name="email"
+            control={control}
+            render={({ field: { onBlur, onChange, value } }) => (
+              <TextInput
+                labelStyles={[styles.label]}
+                label="Email Address"
+                value={value}
+                onChangeText={onChange}
+                placeholder="Enter email address"
+                error={errors?.email?.message}
+                id="email"
+                touched={touchedFields.email}
+                onBlur={onBlur}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+            )}
+          />
+           <Controller
+            name="whatsapp"
+            control={control}
+            render={({ field: { onBlur, onChange, value } }) => (
+              <TextInput
+                labelStyles={[styles.label]}
+                label="WhatsApp Number"
+                value={value}
+                onChangeText={onChange}
+                placeholder="Enter WhatsApp number"
+                error={errors?.whatsapp?.message}
+                id="whatsapp"
+                touched={touchedFields.whatsapp}
+                onBlur={onBlur}
+                maxLength={10}
+                keyboardType="phone-pad"
+              />
+            )}
+          />
             <Controller
               name="fssaiId"
               control={control}

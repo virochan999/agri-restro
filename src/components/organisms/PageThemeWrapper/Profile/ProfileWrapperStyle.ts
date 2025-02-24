@@ -12,6 +12,9 @@ export default StyleSheet.create({
     flex: 0.2,
     padding: 20,
   },
+  topLeftBgImage: {
+    backgroundImage: "url('/src/assets/images/page-background.png')",
+  },
   content: {
     width: '100%',
     flex: 0.8,

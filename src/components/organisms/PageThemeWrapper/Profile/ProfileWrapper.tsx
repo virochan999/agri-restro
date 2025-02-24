@@ -11,7 +11,7 @@ type ProfileWrapperProps = {
 function ProfileWrapper({children}:ProfileWrapperProps) {
   return (
    <SafeAreaView style={styles.container}>
-    <View style={styles.imageContainer}>
+    <View style={[styles.imageContainer, styles.topLeftBgImage]}>
       <View style={styles.textContainer}>
         <View style={styles.headingContainer}>
           <Text style={styles.heading}>Set Up Your</Text>

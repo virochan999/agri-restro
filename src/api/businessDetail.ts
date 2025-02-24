@@ -6,4 +6,8 @@ export const businessDetailApi ={
     const {data} = await api.put(`/agri-restaurant/address`,details)
     return data;
   },
+  getBusinessDetails: async (userId:string)=>{ 
+    const {data} = await api.get(`/agri-restaurant/address/${userId}`)
+    return data;
+  },
 }

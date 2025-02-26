@@ -46,6 +46,7 @@ export default function RootLayout() {
             <Stack.Screen name="(app)/profileDone/index" />
             <Stack.Screen name="(app)/productDetail/index" />
             <Stack.Screen name="(app)/productDetail/detail" />
+            <Stack.Screen name="(app)/feedBack/index" />
           </Stack>
         </AuthProvider>
       </QueryClientProvider>

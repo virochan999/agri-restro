@@ -38,12 +38,16 @@ const Home = () => {
             addToCart={handleAddToCart}
             toggleHeart={toggleHeart}
             onPress={handleHeartPress}
-            itemClick={handleItemClick}
+            itemClick={handleItemClick} 
+            productLabel={"Potato"} 
+            price={"30"}            
           />
           <ProductItemCard
             addToCart={handleAddToCart}
             toggleHeart={toggleHeart}
-            onPress={handleHeartPress}
+            onPress={handleHeartPress} 
+            productLabel={"Tomato"} 
+            price={"30"}          
           />
         </View>
       </View>

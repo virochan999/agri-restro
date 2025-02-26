@@ -4,9 +4,10 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "react-native-reanimated";
 import "@/src/styles/globalStyles";
+import CustomSplashScreen from '@/src/components/organisms/SplashScreen/SplashScreen';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -16,15 +17,22 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../src/assets/fonts/SpaceMono-Regular.ttf"),
   });
+  const [isAppReady, setIsAppReady] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+      setIsAppReady(true);
     }
   }, [loaded]);
 
-  if (!loaded) {
+  if (!loaded || !isAppReady) {
     return null;
+  }
+
+  if (showSplash) {
+    return <CustomSplashScreen onComplete={() => setShowSplash(false)} />;
   }
 
   return (

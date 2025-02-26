@@ -38,6 +38,7 @@ export const Colors = {
     primary: "#F1E8CB",
     bgPrimary: "#F0F0EF",
     secondary: "#F5F5F5",
+    lightPink: "#F2E9CC"
   },
   button: {
     primary: "#4CAF50",

@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { ImageStyle, StyleSheet, TextStyle, TouchableOpacity, View } from "react-native";
 import Image from "../Image/Image";
 import Text from "../Text/Text";
 import Button from "../Button/Button";
@@ -9,35 +9,49 @@ export const ProductItemCard = ({
   onPress,
   toggleHeart,
   addToCart,
+  itemClick,
+  productLabel,
+  price,
+  imageStyle,
+  productLabelStyle,
+  priceStyle
 }: {
-  onPress: () => void;
-  addToCart: () => void;
-  toggleHeart: boolean;
+  onPress?: () => void;
+  addToCart?: () => void;
+  toggleHeart?: boolean;
+  itemClick?: () => void,
+  productLabel: string,
+  price: string,
+  imageStyle?: ImageStyle,
+  productLabelStyle?: TextStyle
+  priceStyle?: TextStyle
 }) => {
   return (
-    <View style={styles.cardContainer}>
-      <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={require("@/src/assets/images/veggies.png")}
-        />
-        <View>
-          <Text style={styles.text}>Vegetables</Text>
-          <Text style={styles.price}>25/kg </Text>
+    <TouchableOpacity onPress={itemClick}>
+      <View style={styles.cardContainer}>
+        <View style={styles.imageContainer}>
+          <Image
+            style={[styles.image, imageStyle]}
+            source={require("@/src/assets/images/veggies.png")}
+          />
+          <View>
+            <Text style={[styles.text,productLabelStyle]}>{productLabel}</Text>
+            <Text style={[styles.price, priceStyle]}>{price}</Text>
+          </View>
         </View>
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={addToCart}
+            textStyle={styles.AddToCartBtnText}
+            btnStyle={styles.AddToCartBtn}
+            text="+"
+          />
+        </View>
+        <TouchableOpacity style={styles.heartIcon} onPress={onPress}>
+          <Heart heartStyle={toggleHeart ? styles.heartRed : styles.heart} />
+        </TouchableOpacity>
       </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          onPress={addToCart}
-          textStyle={styles.AddToCartBtnText}
-          btnStyle={styles.AddToCartBtn}
-          text="+"
-        />
-      </View>
-      <TouchableOpacity style={styles.heartIcon} onPress={onPress}>
-        <Heart heartStyle={toggleHeart ? styles.heartRed : styles.heart} />
-      </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 };
 

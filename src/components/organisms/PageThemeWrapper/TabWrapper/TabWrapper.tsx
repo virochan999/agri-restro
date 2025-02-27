@@ -1,47 +1,41 @@
-import { Text, StyleSheet, SafeAreaView, Pressable } from "react-native";
-import { Tabs, TabList, TabTrigger, TabSlot } from "expo-router/ui";
+import { StyleSheet, SafeAreaView, View, TouchableOpacity } from "react-native";
 import { ReactElement } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "@/src/constants/Colors";
+import { useRouter } from "expo-router";
 
 export default function TabWrapper({ children }: { children: ReactElement }) {
-  const handlePressIn = () => {
-    console.log("here we are");
-  };
+  const router = useRouter();
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Tabs>
-        <TabSlot style={styles.tabSlot}>{children}</TabSlot>
-        <TabList style={styles.tabList}>
-          <TabTrigger name="home" href="/" style={styles.tabTrigger}>
-            <Pressable onPressIn={handlePressIn}>
-              <MaterialIcons name="home" size={30} color={"green"} />
-            </Pressable>
-          </TabTrigger>
+      <View style={styles.tabSlot}>{children}</View>
+      <View style={styles.tabList}>
+        <TouchableOpacity
+          onPress={() => router.push("/(app)/dashboard")}
+          style={styles.tabTrigger}
+        >
+          <MaterialIcons name="home" size={30} color={"green"} />
+        </TouchableOpacity>
 
-          <TabTrigger
-            name="Owner"
-            href="/(app)/wishlist"
-            style={styles.tabTrigger}
-          >
-            <MaterialIcons name="shopping-bag" size={30} color={"green"} />
-          </TabTrigger>
-          <TabTrigger
-            name="wallet"
-            href="/(app)/productDetail"
-            style={styles.tabTrigger}
-          >
-            <MaterialIcons name="wallet" size={30} color={"green"} />
-          </TabTrigger>
-          <TabTrigger
-            name="shoppingCart"
-            href="/(app)/businessDetails"
-            style={styles.tabTrigger}
-          >
-            <MaterialIcons name="shopping-cart" size={30} color={"green"} />
-          </TabTrigger>
-        </TabList>
-      </Tabs>
+        <TouchableOpacity
+          onPress={() => router.push("/(app)/wishlist")}
+          style={styles.tabTrigger}
+        >
+          <MaterialIcons name="shopping-bag" size={30} color={"green"} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/(app)/productDetail")}
+          style={styles.tabTrigger}
+        >
+          <MaterialIcons name="wallet" size={30} color={"green"} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/(app)/profile")}
+          style={styles.tabTrigger}
+        >
+          <MaterialIcons name="shopping-cart" size={30} color={"green"} />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
@@ -52,6 +46,7 @@ const styles = StyleSheet.create({
   },
   tabList: {
     display: "flex",
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     paddingInline: 10,

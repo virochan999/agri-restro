@@ -1,13 +1,13 @@
 import { AuthProvider } from "@/src/components/organisms/AuthProvider/AuthProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import "react-native-reanimated";
 import "@/src/styles/globalStyles";
-import CustomSplashScreen from '@/src/components/organisms/SplashScreen/SplashScreen';
+import CustomSplashScreen from "@/src/components/organisms/SplashScreen/SplashScreen";
 import TabWrapper from "@/src/components/organisms/PageThemeWrapper/TabWrapper/TabWrapper";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -18,6 +18,14 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../src/assets/fonts/SpaceMono-Regular.ttf"),
   });
+  function ConditionalTabWrapper({ children }: any) {
+    const segments = useSegments();
+    const isAppRoute = segments[0] === "(app)";
+    if (isAppRoute) {
+      return <TabWrapper>{children}</TabWrapper>;
+    }
+    return <>{children}</>;
+  }
   const [isAppReady, setIsAppReady] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
 
@@ -41,7 +49,7 @@ export default function RootLayout() {
       <QueryClientProvider client={queryClient}>
         <StatusBar style="auto" />
         <AuthProvider>
-          <TabWrapper>
+          <ConditionalTabWrapper>
             <Stack screenOptions={{ headerShown: false }}>
               <Stack.Screen name="index" />
               <Stack.Screen name="(auth)/login/index" />
@@ -59,7 +67,7 @@ export default function RootLayout() {
               <Stack.Screen name="(app)/feedBack/index" />
               <Stack.Screen name="(app)/wishlist/index" />
             </Stack>
-          </TabWrapper>
+          </ConditionalTabWrapper>
         </AuthProvider>
       </QueryClientProvider>
     </React.Fragment>

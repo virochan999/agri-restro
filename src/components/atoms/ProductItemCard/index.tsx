@@ -1,4 +1,4 @@
-import { ImageStyle, StyleSheet, TextStyle, TouchableOpacity, View } from "react-native";
+import { ImageStyle, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
 import Image from "../Image/Image";
 import Text from "../Text/Text";
 import Button from "../Button/Button";
@@ -14,7 +14,8 @@ export const ProductItemCard = ({
   price,
   imageStyle,
   productLabelStyle,
-  priceStyle
+  priceStyle,
+  itemStyle,
 }: {
   onPress?: () => void;
   addToCart?: () => void;
@@ -24,11 +25,12 @@ export const ProductItemCard = ({
   price: string,
   imageStyle?: ImageStyle,
   productLabelStyle?: TextStyle
-  priceStyle?: TextStyle
+  priceStyle?: TextStyle,
+  itemStyle?: ViewStyle
 }) => {
   return (
     <TouchableOpacity onPress={itemClick}>
-      <View style={styles.cardContainer}>
+      <View style={[styles.cardContainer,itemStyle]}>
         <View style={styles.imageContainer}>
           <Image
             style={[styles.image, imageStyle]}

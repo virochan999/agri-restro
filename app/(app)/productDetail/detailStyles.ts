@@ -62,7 +62,7 @@ export default StyleSheet.create({
     borderTopColor: Colors.black,
     borderTopWidth: 1,
     paddingInline: 20,
-    paddingBlock: 10
+    paddingBlock: 15
   },
   customerHeading: {
     fontSize: 20,
@@ -77,6 +77,7 @@ export default StyleSheet.create({
   },
   reviewHeader: {
     display: "flex",
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center"
   },
@@ -87,4 +88,22 @@ export default StyleSheet.create({
     width: '100%',
     height: undefined,
   },
+  buttonSet: {
+    borderTopColor: Colors.black,
+    borderTopWidth: 1,
+    paddingInline: 20,
+    paddingBlock: 15,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  addToCartBtn: {
+    borderRadius: 4,
+    backgroundColor: Colors.yellow
+  },
+  shopBtn: {
+    borderRadius: 4,
+    backgroundColor: Colors.darkSkin
+  }
 })

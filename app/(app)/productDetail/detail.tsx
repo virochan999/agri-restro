@@ -4,13 +4,14 @@ import styles from "./detailStyles";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react";
 import Rating from "@/src/components/atoms/Rating/Rating";
+import Button from "@/src/components/atoms/Button/Button";
 function detail() {
   const [rating, setRating] = useState<number>(0);
   const handleStarPress = (val: number) => {
     setRating(val);
   };
   return (
-    <DetailWrapper>
+    <DetailWrapper favIcon heading="Potato" >
       <View style={styles.subContainer}>
         <View style={styles.imageContainer}>
           <Image
@@ -59,11 +60,15 @@ function detail() {
             <View style={styles.customContainer}>
               <View style={styles.reviewHeader}>
                 <View>
-                  <Text>Customer reviews</Text>
+                  <Text style={styles.customerHeading}>Customer reviews</Text>
                   <Rating rating={rating} handleStarPress={handleStarPress} />
                 </View>
                 <MaterialIcons name="arrow-right" color="black" size={25} />
               </View>
+            </View>
+            <View style={styles.buttonSet}>
+              <Button textStyle={{color: "black"}} btnStyle={styles.addToCartBtn} text="Add To Cart"  />
+              <Button textStyle={{color: "black"}} btnStyle={styles.shopBtn} text="Buy Now"  />
             </View>
           </View>
         </ScrollView>

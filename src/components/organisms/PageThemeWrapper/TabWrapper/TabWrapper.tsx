@@ -35,6 +35,12 @@ export default function TabWrapper({ children }: { children: ReactElement }) {
         >
           <MaterialIcons name="shopping-cart" size={30} color={"green"} />
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push("/(app)/profile")}
+          style={styles.tabTrigger}
+        >
+          <MaterialIcons name="person" size={30} color={"green"} />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

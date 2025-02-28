@@ -1,20 +1,25 @@
 import { StyleSheet, SafeAreaView, View, TouchableOpacity } from "react-native";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "@/src/constants/Colors";
 import { useRouter } from "expo-router";
 
 export default function TabWrapper({ children }: { children: ReactElement }) {
   const router = useRouter();
+  const [hover,setHover] = useState(false)
+  const handlePressIn=()=>{
+    setHover(true)
+  }
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.tabSlot}>{children}</View>
       <View style={styles.tabList}>
         <TouchableOpacity
+          onPressIn={handlePressIn}
           onPress={() => router.push("/(app)/dashboard")}
-          style={styles.tabTrigger}
+          style={[styles.tabTrigger]}
         >
-          <MaterialIcons name="home" size={30} color={"green"} />
+          <MaterialIcons style={[hover?styles.hover:""]} name="home" size={30} color={"green"} />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -65,4 +70,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  hover: {
+    position: "absolute",
+    backgroundColor: Colors.white,
+    borderRadius: "50%",
+    padding: 15,
+    bottom: -10,
+    fontSize: 40
+  }
 });

@@ -1,81 +1,53 @@
-import { StyleSheet, SafeAreaView, View, TouchableOpacity } from "react-native";
-import { ReactElement, useEffect, useState } from "react";
-import { MaterialIcons } from "@expo/vector-icons";
+import { SafeAreaView, View, TouchableOpacity, Text } from "react-native";
+import { ReactElement } from "react";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Colors } from "@/src/constants/Colors";
-import { useRouter } from "expo-router";
+import { useRouter, usePathname } from "expo-router";
+import { TAB_CONFIG, TabConfig } from "@/src/config/navigation";
+import { AppRoutePaths } from "@/src/types/routes";
+import { IonIconTypes } from "@/src/types/ionIcons";
+import { MaterialIconTypes } from "@/src/types/materialIcons";
+import { styles } from "./TabWrapperStyles";
 
 export default function TabWrapper({ children }: { children: ReactElement }) {
   const router = useRouter();
-  const [hover,setHover] = useState(false)
-  const handlePressIn=()=>{
-    setHover(true)
-  }
+  const pathname = usePathname();
+
+  // Renders the appropriate icon based on the tab configuration
+  const renderIcon = (tab: TabConfig, isActive: boolean) => {
+    const commonProps = {
+      size: 24,
+      color: isActive ? Colors.green : Colors.green,
+    };
+
+    if (tab.iconFamily === "Ionicons") {
+      return <Ionicons name={tab.icon as IonIconTypes} {...commonProps} />;
+    } else {
+      return <MaterialIcons name={tab.icon as MaterialIconTypes} {...commonProps} />;
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.tabSlot}>{children}</View>
       <View style={styles.tabList}>
-        <TouchableOpacity
-          onPressIn={handlePressIn}
-          onPress={() => router.push("/(app)/dashboard")}
-          style={[styles.tabTrigger]}
-        >
-          <MaterialIcons style={[hover?styles.hover:""]} name="home" size={30} color={"green"} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => router.push("/(app)/wishlist")}
-          style={styles.tabTrigger}
-        >
-          <MaterialIcons name="shopping-bag" size={30} color={"green"} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push("/(app)/productDetail")}
-          style={styles.tabTrigger}
-        >
-          <MaterialIcons name="wallet" size={30} color={"green"} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push("/(app)/profile")}
-          style={styles.tabTrigger}
-        >
-          <MaterialIcons name="shopping-cart" size={30} color={"green"} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => router.push("/(app)/profile")}
-          style={styles.tabTrigger}
-        >
-          <MaterialIcons name="person" size={30} color={"green"} />
-        </TouchableOpacity>
+        {TAB_CONFIG.map((tab, index) => {
+          const isActive = pathname.startsWith(tab.route);
+          return (
+            <TouchableOpacity
+              key={index}
+              onPress={() => router.push(tab.route as AppRoutePaths)}
+              style={styles.tabTrigger}
+              activeOpacity={0.7}
+            >
+              <View style={[styles.iconContainer, isActive && styles.activeIconContainer]}>
+                {renderIcon(tab, isActive)}
+              </View> 
+              {isActive && <Text style={styles.tabLabel}>{tab.label}</Text>}
+            </TouchableOpacity>
+          );
+        })}
       </View>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  tabSlot: {
-    flex: 1,
-  },
-  tabList: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    paddingInline: 10,
-    paddingBlock: 15,
-    backgroundColor: Colors.secondary,
-    width: "100%",
-  },
-  tabTrigger: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  hover: {
-    position: "absolute",
-    backgroundColor: Colors.white,
-    borderRadius: "50%",
-    padding: 15,
-    bottom: -10,
-    fontSize: 40
-  }
-});

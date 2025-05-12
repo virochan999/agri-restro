@@ -1,4 +1,3 @@
-import React from "react";
 import { View, Text } from "react-native";
 import styles from "./ProfileStyles";
 import Image from "@/src/components/atoms/Image/Image";

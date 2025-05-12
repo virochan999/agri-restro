@@ -33,7 +33,7 @@ export const TAB_CONFIG: TabConfig[] = [
     label: "Cart"
   },
   {
-    route: "/profile",
+    route: "/profile-section",
     icon: "person",
     iconFamily: "MaterialIcons",
     label: "Profile"

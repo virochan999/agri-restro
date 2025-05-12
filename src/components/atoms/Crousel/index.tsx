@@ -170,13 +170,14 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 20,
     margin: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
     elevation: 5,
   },
   title: {

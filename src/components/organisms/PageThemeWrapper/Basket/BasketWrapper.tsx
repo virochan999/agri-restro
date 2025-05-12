@@ -2,36 +2,65 @@ import { useState, ReactElement } from "react";
 import { SafeAreaView, ScrollView, View } from "react-native";
 import { styles } from "./BasketWrapperStyles";
 import TextInput from "@/src/components/atoms/TextInput/TextInput";
-import Image from "@/src/components/atoms/Image/Image";
-import Text from "@/src/components/atoms/Text/Text";  
-import { MaterialIcons } from '@expo/vector-icons';
+import Text from "@/src/components/atoms/Text/Text";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { useAuthStore } from "@/src/store/useAuthStore";
 function BasketWrapper({ children }: { children: ReactElement }) {
   const [search, setSearch] = useState<string>("");
+  const { user } = useAuthStore();
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <View style={styles.searchInputContainer}>
+        <View style={styles.mainSection}>
           <View style={styles.locationContainer}>
-            <Text style={styles.locationText}> <MaterialIcons style={styles.locationIcon} name="location-on" size={24} color="black" /> Ajabpur Khurd, Dehradun</Text>
-            <Text style={styles.locationText}>Change Location</Text>
-          </View>
-          <TextInput
-            id="search"
-            value={search}
-            onChangeText={(text) => setSearch(text)}
-            placeholder="Search"
-          />
-          <View style={styles.headerContainer}>
-            <View style={styles.headerImageContainer}>
-              <Image style={styles.headerImage} source={require("@/src/assets/images/fm.png")} />
+            <Ionicons
+              name="menu"
+              size={24}
+              color="white"
+              style={styles.menuIcon}
+            />
+            <View style={styles.locationBox}>
+              <Text style={styles.locationHeading}>DELIVER TO</Text>
+              <View style={styles.locationTextContainer}>
+                <Text style={styles.locationText}>Xyz Lab Office</Text>
+                <MaterialIcons
+                  name="keyboard-arrow-down"
+                  size={24}
+                  color="white"
+                />
+              </View>
             </View>
-            <View style={styles.headerTextContainer}>
-              <Text style={[styles.text,styles.headerText]}>KHET-TO-KHARIDAR</Text>
-              <Text style={styles.text}>
-                Fresh, farm-to-table ingredients delivered to your
-                restaurant—fast, transparent, and hassle-free with KrishiLinks!
-              </Text>
-              <Text style={[styles.text, styles.link]}>"Scroll to learn more about KrishiLinks!"</Text>
+            <View style={styles.notificationContainer}>
+              <Ionicons
+                name="notifications"
+                size={24}
+                color="yellow"
+                style={styles.notificationIcon}
+              />
+              <View style={styles.notificationCountContainer}>
+                <Text style={styles.notificationCount}>2</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.searchContainer}>
+            <Text style={styles.searchText}>
+              Hey {user?.contactInfo.fullName}! Good Afternoon!
+            </Text>
+            <View style={styles.inputContainer}>
+              <TextInput
+                id="search"
+                value={search}
+                onChangeText={(text) => setSearch(text)}
+                placeholder="What do you want to order?"
+                style={styles.input}
+              />
+              <Ionicons
+                name="search"
+                size={24}
+                color="white"
+                style={styles.icon}
+              />
             </View>
           </View>
         </View>

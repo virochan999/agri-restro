@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     gap: 25,
+    zIndex: 1,
   },
   header: {
     padding: 16,

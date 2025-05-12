@@ -38,7 +38,9 @@ export const Colors = {
     primary: "#F1E8CB",
     bgPrimary: "#F0F0EF",
     secondary: "#F5F5F5",
-    lightPink: "#F2E9CC"
+    lightPink: "#F2E9CC",
+    primaryGreen: "#36483A",
+    lightGreen: "#6E8973",
   },
   button: {
     primary: "#4CAF50",
@@ -47,6 +49,6 @@ export const Colors = {
   yellow: "#FED403",
   green: "#375428",
   grey: "#D9D9D9",
-  darkSkin: "#FFA51D"
-
+  darkSkin: "#FFA51D",
+  lightGrey: "#B4B0B0",
 };

@@ -13,7 +13,7 @@ export default StyleSheet.create({
     padding: 20,
   },
   topLeftBgImage: {
-    backgroundImage: "url('/src/assets/images/page-background.png')",
+    backgroundImage: "url(@/src/assets/images/page-background.png')",
   },
   content: {
     width: '100%',

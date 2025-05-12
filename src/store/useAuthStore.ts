@@ -1,16 +1,17 @@
 import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { User } from "../types/user";
 
 interface AuthState {
   token: string | null;
-  user: any | null;
+  user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   userId: string | null;
   registrationData: {
     userId: string;
     isOtpVerified: boolean;
-    userOtp: string
+    userOtp: string;
   };
   pendingVerification: boolean;
   setAuth: (data: any) => Promise<void>;
@@ -20,7 +21,13 @@ interface AuthState {
   setPendingVerification: (status: boolean) => void;
   setRegistrationData: (data: { id: string }) => void;
   clearRegistrationData: () => void;
-  setOtpVerified: ({status, userOtp}: {status: boolean, userOtp: string}) => void;
+  setOtpVerified: ({
+    status,
+    userOtp,
+  }: {
+    status: boolean;
+    userOtp: string;
+  }) => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -31,9 +38,9 @@ export const useAuthStore = create<AuthState>((set) => ({
   isLoading: true,
   pendingVerification: false,
   registrationData: {
-    userId: '',
+    userId: "",
     isOtpVerified: false,
-    userOtp: ''
+    userOtp: "",
   },
   setAuth: async (data) => {
     // Store auth data in AsyncStorage
@@ -83,21 +90,23 @@ export const useAuthStore = create<AuthState>((set) => ({
   setUserId: (userId) => set({ userId }),
   setPendingVerification: (status) => set({ pendingVerification: status }),
   setRegistrationData: (data) => {
-    set((state)=> ({
+    set((state) => ({
       registrationData: {
         ...state.registrationData,
-        userId: data.id
-      }
-    }))
+        userId: data.id,
+      },
+    }));
   },
-  clearRegistrationData: () => 
-    set({ registrationData: { userId: '', isOtpVerified: false, userOtp: '' } }),
-  setOtpVerified: ({status, userOtp}) => 
+  clearRegistrationData: () =>
+    set({
+      registrationData: { userId: "", isOtpVerified: false, userOtp: "" },
+    }),
+  setOtpVerified: ({ status, userOtp }) =>
     set((state) => ({
       registrationData: {
         ...state.registrationData,
         isOtpVerified: status,
-        userOtp: userOtp
-      }
+        userOtp: userOtp,
+      },
     })),
 }));

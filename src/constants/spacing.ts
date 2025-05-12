@@ -13,10 +13,11 @@ export const spacing = {
   },
   fontSize: {
     sm: 12,
+    base: 14,
     md: 16,
     lg: 20,
     xl: 24,
-    '2xl': 32,
+    "2xl": 32,
   },
   fontWeight: {
     normal: "normal",
@@ -35,5 +36,5 @@ export const spacing = {
     small: 8,
     medium: 12,
     large: 16,
-  }
+  },
 };

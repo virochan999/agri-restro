@@ -1,22 +1,20 @@
-
 import { Colors } from "@/src/constants/Colors";
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: Colors.background.primary,
     gap: 35,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   footer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   link: {
-    color: Colors.primary
+    color: Colors.primary,
   },
 });

@@ -52,12 +52,12 @@ const SplashScreen = ({ onComplete } : SplashScreenProps) => {
     <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       <View style={styles.borderContainer}>
         <Image
-          source={require('@/src/assets/images/startup/left-border.png')}
+          source={require('@/src/assets/images/startup/fruits-left.png')}
           style={styles.leftBorder}
           resizeMode="stretch"
         />
         <Image
-          source={require('@/src/assets/images/startup/right-border.png')}
+          source={require('@/src/assets/images/startup/fruits-right.png')}
           style={styles.rightBorder}
           resizeMode="stretch"
         />

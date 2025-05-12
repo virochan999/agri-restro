@@ -30,10 +30,11 @@ export const styles = StyleSheet.create({
   activeIconContainer: {
     backgroundColor: "#e6f7e9",
     elevation: 4,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
+    // shadowColor: "#000",
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.1,
+    // shadowRadius: 3,
+    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
   },
   tabLabel: {
     fontSize: 10,

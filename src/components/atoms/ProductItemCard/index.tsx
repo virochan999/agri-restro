@@ -1,110 +1,92 @@
-import { ImageStyle, StyleSheet, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Image from "../Image/Image";
 import Text from "../Text/Text";
 import Button from "../Button/Button";
-import { Heart } from "../heart";
 import { Colors } from "@/src/constants/Colors";
 
 export const ProductItemCard = ({
-  onPress,
-  toggleHeart,
   addToCart,
-  itemClick,
   productLabel,
+  label,
   price,
-  imageStyle,
-  productLabelStyle,
-  priceStyle,
-  itemStyle,
+  imageSrc,
 }: {
-  onPress?: () => void;
-  addToCart?: () => void;
-  toggleHeart?: boolean;
-  itemClick?: () => void,
-  productLabel: string,
-  price: string,
-  imageStyle?: ImageStyle,
-  productLabelStyle?: TextStyle
-  priceStyle?: TextStyle,
-  itemStyle?: ViewStyle
+  addToCart: () => void;
+  productLabel: string;
+  label: string;
+  price: number;
+  imageSrc: string;
 }) => {
   return (
-    <TouchableOpacity onPress={itemClick}>
-      <View style={[styles.cardContainer,itemStyle]}>
-        <View style={styles.imageContainer}>
-          <Image
-            style={[styles.image, imageStyle]}
-            source={require("@/src/assets/images/veggies.png")}
-          />
-          <View>
-            <Text style={[styles.text,productLabelStyle]}>{productLabel}</Text>
-            <Text style={[styles.price, priceStyle]}>{price}</Text>
-          </View>
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={addToCart}
-            textStyle={styles.AddToCartBtnText}
-            btnStyle={styles.AddToCartBtn}
-            text="+"
-          />
-        </View>
-        <TouchableOpacity style={styles.heartIcon} onPress={onPress}>
-          <Heart heartStyle={toggleHeart ? styles.heartRed : styles.heart} />
-        </TouchableOpacity>
+    <View style={styles.cardContainer}>
+      <Image
+        style={styles.image}
+        source={require("@/src/assets/images/products/bell_pepper_red.png")}
+      />
+      <Text style={styles.productLabel}>{productLabel}</Text>
+      <Text style={styles.label}>{label}</Text>
+      <View style={styles.priceContainer}>
+        <Text style={styles.price}>₹{price} /kg</Text>
+        <Button
+          onPress={addToCart}
+          textStyle={styles.addToCartBtnText}
+          btnStyle={styles.addToCartBtn}
+          text="+"
+        />
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   cardContainer: {
-    position: "relative",
-    flexDirection: "row",
-    padding: 20,
-    borderRadius: 10,
-    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-  },
-  imageContainer: {
-    display: "flex",
-    flexDirection: "row",
-    gap: 10,
+    backgroundColor: "#FFF9E6",
+    borderRadius: 15,
+    padding: 15,
+    marginHorizontal: 5,
+    alignItems: "center",
+    width: 120,
+    height: 200,
   },
   image: {
-    borderRadius: 7,
+    width: 80,
+    height: 80,
+    borderRadius: 10,
+    marginBottom: 10,
+    resizeMode: "contain",
   },
-  text: {
-    fontSize: 21,
-    fontWeight: 400,
-    lineHeight: 30,
+  productLabel: {
+    fontSize: 16,
+    fontWeight: "500",
+    textAlign: "center",
+    marginBottom: 5,
+  },
+  label: {
+    fontSize: 12,
+    color: Colors.grey,
+    textAlign: "center",
+    marginBottom: 5,
+  },
+  priceContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    marginTop: 5,
   },
   price: {
-    fontSize: 16,
-    fontWeight: 400,
-    lineHeight: 20,
+    fontSize: 14,
+    fontWeight: "500",
   },
-  buttonContainer: {
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-  AddToCartBtnText: {
-    color: Colors.black,
-    fontSize: 20,
-  },
-  AddToCartBtn: {
+  addToCartBtn: {
     backgroundColor: Colors.grey,
-    borderRadius: 7,
-    paddingInline: 30,
-    paddingBlock: 3.5,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
-  heartIcon: {
-    position: "absolute",
-    right: 10,
-  },
-  heart: {
-    backgroundColor: "grey",
-  },
-  heartRed: {
-    backgroundColor: "red",
+  addToCartBtnText: {
+    color: Colors.black,
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

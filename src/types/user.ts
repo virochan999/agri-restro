@@ -1,3 +1,10 @@
+export type ContactInfo = {
+  fullName: string;
+  email: string;
+  phone: string;
+  contactType: string;
+};
+
 export type User = {
   id: number;
   email: string;
@@ -5,4 +12,5 @@ export type User = {
   password: string;
   createdAt: string;
   updatedAt: string;
+  contactInfo: ContactInfo;
 };

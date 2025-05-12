@@ -61,11 +61,14 @@ export default function RootLayout() {
               <Stack.Screen name="(app)/profile/index" />
               <Stack.Screen name="(app)/owner/index" />
               <Stack.Screen name="(app)/businessDetails/index" />
+              <Stack.Screen name="(app)/profile-section/index" />
               <Stack.Screen name="(app)/profileDone/index" />
               <Stack.Screen name="(app)/productDetail/index" />
               <Stack.Screen name="(app)/productDetail/detail" />
               <Stack.Screen name="(app)/feedBack/index" />
               <Stack.Screen name="(app)/wishlist/index" />
+              <Stack.Screen name="(app)/settings/index" />
+              <Stack.Screen name="(app)/notifications/index" />
             </Stack>
           </ConditionalTabWrapper>
         </AuthProvider>

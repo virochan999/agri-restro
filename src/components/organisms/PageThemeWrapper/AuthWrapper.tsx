@@ -8,12 +8,14 @@ type AuthWrapperProps = {
 const AuthWrapper = ({ children }: AuthWrapperProps) => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        {children}
-      </View>
+      <View style={styles.content}>{children}</View>
       <View style={styles.imageContainer}>
-        <ImageBackground 
-          source={require("@/src/assets/images/page-background.png")}
+        <ImageBackground
+          source={require("@/src/assets/images/main-spiral.png")}
+          resizeMode="cover"
+        />
+        <ImageBackground
+          source={require("@/src/assets/images/bg-image.png")}
           style={styles.backgroundImage}
           resizeMode="cover"
         />

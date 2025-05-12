@@ -3,16 +3,17 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     paddingTop: 40,
-    gap: 16
+    gap: 16,
+    zIndex: 1,
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   passwordContainer: {
-    position: 'relative',
+    position: "relative",
   },
   passwordIconPosition: {
-    position: 'absolute',
+    position: "absolute",
     right: 10,
     top: 35,
   },
@@ -22,8 +23,7 @@ export default StyleSheet.create({
   buttonContainer: {
     paddingTop: 35,
   },
-  requirementsContainer: {
-  },
+  requirementsContainer: {},
   requirementItem: {
     fontSize: 12,
   },
@@ -32,7 +32,7 @@ export default StyleSheet.create({
     fontWeight: 500,
   },
   errorText: {
-    color: 'red',
-    textAlign: 'center',
+    color: "red",
+    textAlign: "center",
   },
-})
+});
